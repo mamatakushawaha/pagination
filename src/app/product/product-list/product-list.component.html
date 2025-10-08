@@ -1,0 +1,38 @@
+<h2>Product List</h2>
+
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products | paginate: { id: 'products', itemsPerPage: pageSize, currentPage: p , totalItems: totalRecords }">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div style="text-align: center; margin-top: 10px;">
+  <p>
+    Showing {{ (p - 1) * pageSize + 1 }} –
+    {{ Math.min(p * pageSize, totalRecords) }}
+    of {{ totalRecords }} items
+  </p>
+
+  <p><strong>Page {{ p }} of {{ totalPages }}</strong></p>
+
+  <pagination-controls 
+      id="products"
+      previousLabel="Previous" 
+      nextLabel="Next"
+      (pageChange)="onPageChange($event)">
+  </pagination-controls>
+</div>
