@@ -10,6 +10,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'products',
     pathMatch: 'full'
+  },
+  {
+    path:'filter',
+    loadChildren: ()=>import('./product-filter/product-filter.module').then(m=>m.ProductFilterModule)
   }
 ];
 

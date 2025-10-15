@@ -1,0 +1,51 @@
+
+<h2>Product List</h2>
+
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th (click)="sort('id')">ID
+        <span *ngIf="sortBy === 'id' && sortDir === 'asc'">▲</span>
+        <span *ngIf="sortBy === 'id' && sortDir === 'desc'">▼</span>
+      </th>
+      <th (click)="sort('name')">Product
+        <span *ngIf="sortBy === 'name' && sortDir === 'asc'">▲</span>
+        <span *ngIf="sortBy === 'name' && sortDir === 'desc'">▼</span>
+      </th>
+      <th (click)="sort('quantity')">Quantity
+        <span *ngIf="sortBy === 'quantity' && sortDir === 'asc'">▲</span>
+        <span *ngIf="sortBy === 'quantity' && sortDir === 'desc'">▼</span>
+      </th>
+      <th (click)="sort('price')">Price
+        <span *ngIf="sortBy === 'price' && sortDir === 'asc'">▲</span>
+        <span *ngIf="sortBy === 'price' && sortDir === 'desc'">▼</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products | paginate: { id: 'products', itemsPerPage: size, currentPage: p , totalItems: totalRecords }">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div style="text-align: center; margin-top: 10px;">
+  <p>
+    Showing {{ (p - 1) * size + 1 }} –
+    {{ Math.min(p * size, totalRecords) }}
+    of {{ totalRecords }} items
+  </p>
+
+  <p><strong>Page {{ p }} of {{ totalPages }}</strong></p>
+
+  <pagination-controls 
+      id="products"
+      previousLabel="Previous" 
+      nextLabel="Next"
+      (pageChange)="onPageChange($event)">
+  </pagination-controls>
+</div>

@@ -15,5 +15,8 @@ export class ProductService {
     // console.log(`Fetching products with offset: ${pageNo}, pageSize: ${pageSize}`);
     return this.http.get(`${this.baseUrl}/pagination/${pageNo-1}/${pageSize}`);
   }
+  getProductByFilter(page:number,size:number,sortBy:string,sortDir:string){
+    return this.http.get(`${this.baseUrl}/filter?page=${page-1}&size=${size}&sortBy=${sortBy}&sortDir=${sortDir}`);
+  }
 
 }
