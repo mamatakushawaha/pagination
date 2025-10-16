@@ -1,5 +1,9 @@
 <h2>Product List</h2>
-
+<div style="margin-bottom: 10px; display: flex; justify-content: space-around; align-items: center; width: 40%;">
+  <div> <button (click)="exportToPdf()" style="padding: 10px;">Generate PDF</button></div>
+ <div><button (click)="exportToExcel()" style="padding: 10px;">Generate Excel</button></div>
+  
+</div>
 <table border="1" cellpadding="8" cellspacing="0" width="100%">
   <thead>
     <tr>

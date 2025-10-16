@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { ProductService } from 'src/app/services/product.service';
-
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -46,4 +48,26 @@ export class ProductListComponent implements OnInit {
     this.loadProducts(this.p);
   }
 
+  exportToPdf() {
+    const doc=new jsPDF();
+    let col=['ID','Name','Quantity','Price'];
+    const rows=this.products.map(prod=>[prod.id,prod.name,prod.quantity,prod.price]);
+    doc.text('Product List',14,10);
+    (autoTable as any)(doc,{
+      head:[col],
+      body:rows
+    })
+    // doc.autoTable({
+    //   head:[col],
+    //   body:rows
+    // });
+    doc.save('products.pdf');
+  }
+  exportToExcel() {
+    const worksheet=XLSX.utils.json_to_sheet(this.products);
+    const workbook={Sheets:{'data':worksheet},SheetNames:['data']};
+    const excelBuffer:any=XLSX.write(workbook,{bookType:'xlsx',type:'array'});
+   const data:Blob=new Blob([excelBuffer],{type:'application/octet-stream'});
+    XLSX.writeFile(workbook,'products.xlsx');
+  }
 }

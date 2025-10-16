@@ -13,7 +13,8 @@ const routes: Routes = [
   declarations: [ProductListComponent],
   imports: [
     CommonModule,
-    NgxPaginationModule,   
+    NgxPaginationModule,  
+
     RouterModule.forChild(routes)
   ]
 })
