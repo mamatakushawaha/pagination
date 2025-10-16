@@ -3,6 +3,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ProductService } from 'src/app/services/product.service';
 import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -57,10 +58,7 @@ export class ProductListComponent implements OnInit {
       head:[col],
       body:rows
     })
-    // doc.autoTable({
-    //   head:[col],
-    //   body:rows
-    // });
+   
     doc.save('products.pdf');
   }
   exportToExcel() {
@@ -68,6 +66,7 @@ export class ProductListComponent implements OnInit {
     const workbook={Sheets:{'data':worksheet},SheetNames:['data']};
     const excelBuffer:any=XLSX.write(workbook,{bookType:'xlsx',type:'array'});
    const data:Blob=new Blob([excelBuffer],{type:'application/octet-stream'});
-    XLSX.writeFile(workbook,'products.xlsx');
+   saveAs(data,'products.xlsx');
+    
   }
 }
